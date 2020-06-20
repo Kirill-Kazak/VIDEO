@@ -1,0 +1,44 @@
+{% extends "main_template.html" %}
+{% load static %}
+
+{% block title %} all video{% endblock %}
+ {% block links %}<script src="{% static "script.js" %}"></script>{% endblock %}
+{% block video %}
+    <img src="{% static "Kotik" %}">
+{% for video in content %}
+    <iframe width="640" height="360" src="{{video.urls}}"></iframe>
+        <a href={% url "one_video" id=video.id %}>
+        <h4>
+            <i>{{ video.title }}</i>
+        </h4>
+    </a>
+    <h3> {{ video.date }}</h3>
+    <h3 class="like" id="{{ video.id }}">Likes: {{ video.likes }}</h3>>
+{#    <a href="/hello/add_like/{{ video.id }}/"><h2>Likes{{ video.likes }}</h2></a>#}
+    <h5>{{ video.description }}</h5>
+    <div id="comment-container{{ video.id }}">
+    {% for com in video.comment.all %}
+        <button data-toggle="collapse" data-target="#demo{{ com.id }}">Open me</button>
+
+        <div id="demo{{ com.id }}" class="collapse">
+            <i>{{ com.text }}</i>
+         </div>
+        <h5> {{com.date  }}</h5>
+        <hr>
+    {% endfor %}
+    </div>
+{#<form id={{ video.id }}>#}
+{#    {% csrf_token %}#}
+{#        <div class="form-group">#}
+{#        <label for="comment">Comment:</label>#}
+{#        <textarea class="form-control" rows="5" name="com" id="comment"></textarea>#}
+{#        </div>#}
+{#        <button type="button" class="btn btn-warning" id="">ХАРОШ</button>#}
+{#    </form>#}
+
+    {% include "test.html" with some_id=video.id %}
+
+{% endfor %}
+{% endblock %}
+
+
