@@ -50,6 +50,11 @@ def ajax_like(request):
     video.likes += 1
     video.save()
     return HttpResponse(video.likes)
+
+
+
+
+
 #
 
 def ajax_comment(request):
